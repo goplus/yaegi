@@ -1712,3 +1712,12 @@ func TestIssue1151(t *testing.T) {
 		{src: "x := pkg.Array{1}", res: "[1]"},
 	})
 }
+
+func TestPassArgs(t *testing.T) {
+	i := interp.New(interp.Options{Args: []string{"arg0", "arg1"}})
+	i.Use(stdlib.Symbols)
+	i.ImportUsed()
+	runTests(t, i, []testCase{
+		{src: "os.Args", res: "[arg0 arg1]"},
+	})
+}
